@@ -6,10 +6,10 @@
     <title>Senger Sparkle & Shine | From Europe to USA</title>
     <style>
         :root {
-            --rosso-corsa: #D40000;       /* Racing Red */
-            --maserati-blue: #0A1F44;     /* Deep Metallic Blue */
-            --pepper-white: #F5F1E8;      /* Mini Off-White Text */
-            --aston-green: #004225;       /* British Racing Green Trim */
+            --rosso-corsa: #D40000;       
+            --maserati-blue: #0A1F44;     
+            --pepper-white: #F5F1E8;      
+            --aston-green: #004225;       
             --carbon-black: #111111;
         }
 
@@ -22,310 +22,244 @@
             touch-action: manipulation; 
         }
 
-        /* TRAVEL & SALE BARS */
-        .travel-tag {
-            background-color: var(--rosso-corsa);
-            color: var(--pepper-white);
-            text-align: center;
-            padding: 12px 0;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            border-bottom: 2px solid var(--aston-green);
-        }
+        /* TRAVEL & SALE BARS (UNTOUCHED) */
+        .travel-tag { background-color: var(--rosso-corsa); color: var(--pepper-white); text-align: center; padding: 12px 0; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; border-bottom: 2px solid var(--aston-green); position: relative; z-index: 10; }
+        .sale-bar { background-color: var(--carbon-black); color: var(--pepper-white); text-align: center; padding: 10px 0; font-size: 0.85rem; border-bottom: 2px solid var(--aston-green); position: relative; z-index: 10; }
 
-        .sale-bar {
-            background-color: var(--carbon-black);
-            color: var(--pepper-white);
-            text-align: center;
-            padding: 10px 0;
-            font-size: 0.85rem;
-            border-bottom: 2px solid var(--aston-green);
-        }
-
-        /* PANEL 1: BRANDING */
-        header {
-            padding: 100px 20px;
-            text-align: center;
+        /* MERGED MASTER HERO */
+        .master-hero {
             position: relative;
-            overflow: hidden;
-            background-image: url('https://i.ibb.co/VYGSnBDg/20260317-182734-1.jpg');
-            background-size: cover;
-            background-position: center 35%;
-            background-color: var(--maserati-blue);
-            background-blend-mode: luminosity;
-            border-bottom: 2px solid var(--aston-green);
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(10, 31, 68, 0.6);
-            z-index: 1;
-        }
-
-        header h1, header p { position: relative; z-index: 2; }
-
-        header h1 {
-            margin: 0;
-            font-size: clamp(2rem, 8vw, 3.2rem);
-            letter-spacing: -2px;
-            text-shadow: 3px 3px 0px var(--aston-green);
-            text-transform: uppercase;
-        }
-
-        /* PANEL 2: HERO */
-        .hero {
-            border-bottom: 4px solid var(--aston-green);
-            background: linear-gradient(rgba(10, 31, 68, 0.85), rgba(10, 31, 68, 0.85)), 
-                        url('https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&q=80&w=1200');
-            background-size: cover;
-            background-position: center;
-            padding: 80px 20px;
+            padding: 120px 20px;
             text-align: center;
-        }
-
-        .hero h2 { font-size: 2.5rem; margin: 0; }
-
-        /* CONTENT CONTAINER */
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .section-header {
+            background-image: linear-gradient(rgba(10, 31, 68, 0.5), rgba(10, 31, 68, 0.8)), url('https://i.ibb.co/VYGSnBDg/20260317-182734-1.jpg');
+            background-size: cover;
+            background-position: center 40%; /* Keeps the Badge/Car centered better */
+            border-bottom: 4px solid var(--aston-green);
+            min-height: 50vh;
             display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 60px 0 30px;
-        }
-
-        .section-header h3 { margin: 0; text-transform: uppercase; letter-spacing: 2px; }
-        .line { flex-grow: 1; height: 1px; background: var(--aston-green); }
-
-        /* GRID SYSTEM */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--aston-green);
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .card:hover { border-color: var(--rosso-corsa); transform: translateY(-5px); }
-
-        .project-img {
-            width: 100%;
-            height: 250px;
-            display: block;
-            object-fit: cover;
-            border-bottom: 1px solid var(--aston-green);
-        }
-
-        .card-info { padding: 20px; }
-        .card-info h4 { margin: 0; }
-        .card-info p { margin: 5px 0 0; font-size: 0.85rem; color: var(--rosso-corsa); font-weight: bold; }
-        
-        /* SERVICE CARD SPECIFICS */
-        .service-title { font-size: 1.8rem !important; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px !important; }
-        .price-tag { font-size: 1.5rem; color: var(--rosso-corsa); font-weight: 800; margin: 10px 0; }
-        .feature-list { list-style: none; padding: 0; font-size: 0.9rem; opacity: 0.8; }
-        .feature-list li::before { content: "✓ "; color: var(--aston-green); font-weight: bold; }
-
-        .zoom-hint { font-size: 0.65rem; opacity: 0.5; margin-top: 10px; text-transform: uppercase; }
-
-        /* SCHEDULE TABLE */
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 40px 0;
-            border: 1px solid var(--aston-green);
-        }
-
-        .schedule-table th { background: var(--aston-green); padding: 15px; text-align: left; }
-        .schedule-table td { padding: 15px; border-bottom: 1px solid rgba(245, 241, 232, 0.1); }
-        .current-stop { background-color: rgba(212, 0, 0, 0.15); }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--rosso-corsa);
-            color: var(--pepper-white);
-            padding: 15px 35px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        /* ZOOM LIGHTBOX */
-        #lightbox {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
 
-        #lightbox img { width: 100%; max-width: 1000px; height: auto; border: 1px solid var(--aston-green); }
-
-        #close-btn {
-            position: absolute;
-            top: 20px; right: 20px;
-            font-size: 40px; color: var(--rosso-corsa);
-            cursor: pointer; z-index: 10001;
-            background: rgba(0,0,0,0.6);
-            width: 50px; height: 50px; line-height: 45px;
-            text-align: center; border-radius: 50%;
+        .master-hero h1 { 
+            margin: 0; 
+            font-size: clamp(2.2rem, 10vw, 4rem); 
+            letter-spacing: -2px; 
+            text-shadow: 3px 3px 0px var(--aston-green); 
+            text-transform: uppercase; 
+            line-height: 0.9;
         }
 
-        footer { text-align: center; padding: 60px 20px; font-size: 0.8rem; opacity: 0.5; }
+        .master-hero p { 
+            font-size: 1.1rem; 
+            max-width: 600px; 
+            margin: 20px auto;  
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
 
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+
+        .section-header { display: flex; align-items: center; gap: 15px; margin: 60px 0 30px; }
+        .section-header h3 { margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+        .line { flex-grow: 1; height: 1px; background: var(--aston-green); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+
+        .card { background: rgba(0, 0, 0, 0.3); border: 1px solid var(--aston-green); transition: 0.3s; cursor: pointer; display: flex; flex-direction: column; }
+        .card:hover { border-color: var(--rosso-corsa); transform: translateY(-5px); }
+
+        .project-img { width: 100%; height: 250px; display: block; object-fit: cover; border-bottom: 1px solid var(--aston-green); }
+        .card-info { padding: 20px; flex-grow: 1; }
+        
+        .service-title { font-size: 1.6rem !important; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px !important; }
+        .price-tag { font-size: 1.5rem; color: var(--rosso-corsa); font-weight: 800; margin: 10px 0; }
+        .feature-list { list-style: none; padding: 0; font-size: 0.9rem; opacity: 0.8; }
+        .feature-list li::before { content: "✓ "; color: var(--aston-green); font-weight: bold; }
+
+        .schedule-table { width: 100%; border-collapse: collapse; margin: 40px 0; border: 1px solid var(--aston-green); }
+        .schedule-table th { background: var(--aston-green); padding: 15px; text-align: left; }
+        .schedule-table td { padding: 15px; border-bottom: 1px solid rgba(245, 241, 232, 0.1); }
+        .current-stop { background-color: rgba(212, 0, 0, 0.15); }
+
+        .btn { display: inline-block; background-color: var(--rosso-corsa); color: var(--pepper-white); padding: 15px 35px; text-decoration: none; font-weight: bold; margin-top: 20px; border: none; cursor: pointer; }
+
+        /* SECONDARY PAGE SYSTEM */
+        #service-page {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--maserati-blue);
+            z-index: 10000;
+            overflow-y: auto;
+            padding: 20px 20px 40px;
+            box-sizing: border-box;
+        }
+
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            background: var(--maserati-blue);
+            padding: 10px 0;
+            z-index: 10001;
+        }
+
+        .back-btn { 
+            color: var(--pepper-white); 
+            font-size: 3.5rem; 
+            line-height: 1;
+            cursor: pointer; 
+            display: inline-block;
+        }
+
+        #lightbox { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); justify-content: center; align-items: center; }
+        #lightbox img { width: 100%; max-width: 1000px; height: auto; }
+        #close-btn { position: absolute; top: 20px; right: 20px; font-size: 40px; color: var(--rosso-corsa); cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="travel-tag">📍 Current: Saint-Raphaël, France</div>
-    <div class="sale-bar">PRE-BOOK SPECIAL: 15% Off all slots booked during The European Tour</div>
+    <div id="main-content">
+        <div class="travel-tag">📍 Current: Saint-Raphaël, France</div>
+        <div class="sale-bar">25% off all first full details and 50% off with 3 referals!</div>
 
-    <header>
-        <h1>SENGER SPARKLE AND SHINE</h1>
-        <p style="text-transform: lowercase;">Precision Care for Performance & Luxury Imports</p>
-    </header>
-
-    <div class="hero">
-        <h2>Ready for the Road</h2>
-        <p>Expert detailing services reaching from the EU to the West Coast</p>
-        <a href="#contact" class="btn">Inquire on Availability</a>
-    </div>
-
-    <div class="container">
-        
-        <div class="section-header">
-            <h3>Recent Commissions</h3>
-            <div class="line"></div>
-        </div>
-        <div class="grid">
-            <div class="card">
-                <div class="project-img" style="display:flex; align-items:center; justify-content:center; background:#111; color: #444; font-size: 0.8rem;">[IMAGE: ASTON MARTIN]</div>
-                <div class="card-info">
-                    <h4>Aston Martin Vantage</h4>
-                    <p>1 in 100 F1 Edition Roadster</p>
-                    <div class="zoom-hint">Double Tap to Expand</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="project-img" style="display:flex; align-items:center; justify-content:center; background:#111; color: #444; font-size: 0.8rem;">[IMAGE: MASERATI]</div>
-                <div class="card-info">
-                    <h4>Maserati Grecale Trofeo</h4>
-                    <p>Grigio Vesuvio shines best when clean</p>
-                    <div class="zoom-hint">Double Tap to Expand</div>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://i.ibb.co/TDgNvRWb/20260317-081539-1-1-1.jpg" class="project-img" alt="Mini JCW">
-                <div class="card-info">
-                    <h4>Mini JCW</h4>
-                    <p>A clean convertible is a happy convertible</p>
-                    <div class="zoom-hint">Double Tap to Expand</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-header">
-            <h3>Service Options</h3>
-            <div class="line"></div>
-        </div>
-        <div class="grid">            
-            <div class="card" style="border-top: 4px solid var(--rosso-corsa);">
-                <div class="card-info">
-                    <h4 class="service-title">In-House Detail</h4>
-                    <p>Precision care at my location.</p>
-                    <div class="price-tag">From $275-400 (4-8 Hours)</div>
-                    <ul class="feature-list">
-                        <li>Full Exterior Detailing and Polish</li>
-                        <li>Ceramic Coating (Optional)</li>
-                        <li>Leather & Trim Restoration</li>
-                        <li>Engine Bay Detailing</li>
-                        <li>Chrome Buff and Shine</li>
-                        <li>Exhaust Flush and Polish</li>
-                        <p>Larger vehicles recommended</p>
-                    </ul>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-info">
-                    <h4 class="service-title">Mobile Shining</h4>
-                    <p>Professional service at your location.</p>
-                    <div class="price-tag">$350 (3-6 Hours)</div>
-                    <ul class="feature-list">
-                        <li>Exterior Hand Wash & Dry</li>
-                        <li>Wheel & Tire Deep Cleaning</li>
-                        <li>Interior Vacuum & Dusting</li>
-                        <li>Ceramic Coating and Polish</li>
-                        <p>More limited in options for detailing</p>
-                        <p>Only available for touring</p>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-header">
-            <h3>2026 Tour Schedule</h3>
-            <div class="line"></div>
-        </div>
-        <table class="schedule-table">
-            <thead>
-                <tr><th>Dates</th><th>Region</th><th>Status</th></tr>
-            </thead>
-            <tbody>
-                <tr class="current-stop">
-                    <td>September - June</td>
-                    <td>Saint-Raphaël (FR)</td>
-                    <td><span style="color: var(--rosso-corsa);">●</span> Active</td>
-                </tr>
-                <tr>
-                    <td>July - August</td>
-                    <td>Golden (USA)</td>
-                    <td>Filling Fast</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <section id="contact" style="text-align: center; margin-top: 60px;">
-            <h3>Direct Contact</h3>
-            <p><strong>WhatsApp:</strong> +1 (720) 999-3326</p>
-            <p><strong>Email:</strong> <a href="mailto:octavianruleraugustus@gmail.com" style="color:var(--pepper-white); text-decoration: none;">octavianruleraugustus@gmail.com</a></p>
-            <p><strong>YT:</strong> <a href="https://youtube.com/@sspark_shin3?si=woZ5CXiYXe6RqhIo" style="color:var(--rosso-corsa); text-decoration: none;">Senger Sparkle & Shine</a></p>
+        <section class="master-hero">
+            <h1>SENGER SPARKLE AND SHINE</h1>
+            <p>Precision Care for Performance & Luxury Imports</p>
+            <a href="#contact" class="btn">Inquire on Availability</a>
         </section>
 
+        <div class="container">
+            <div class="section-header"><h3>Recent Commissions</h3><div class="line"></div></div>
+            <div class="grid">
+                <div class="card">
+                    <img src="https//.jpg" class="project-img" alt="Aston Martin Vantage">                 
+                    <div class="card-info"><h4>Aston Martin Vantage</h4><p>1 in 100 F1 Edition Roadster</p></div>
+                </div>
+                <div class="card">
+                    <img src="https://i.ibb.co/VYGSnBDg/20260317-182734-1.jpg" class="project-img" alt="Maserati Grecale">
+                    <div class="card-info"><h4>Maserati Grecale Trofeo</h4><p>Grigio Vesuvio shines best clean</p></div>
+                </div>
+                <div class="card">
+                    <img src="https://i.ibb.co/TDgNvRWb/20260317-081539-1-1-1.jpg" class="project-img" alt="Mini JCW">
+                    <div class="card-info"><h4>Mini JCW</h4><p>A FWD GT with pride</p></div>
+                </div>
+            </div>
+
+            <div class="section-header"><h3>Service Options</h3><div class="line"></div></div>
+            <div class="grid">            
+                <div class="card" onclick="openService('In-House Detail', '$275-400', 'inhouse')" style="border-top: 4px solid var(--rosso-corsa);">
+                    <div class="card-info">
+                        <h4 class="service-title">In-House Detail</h4>
+                        <div class="price-tag">$275-400</div>
+                        <p>Full Precision Care + Shuttle</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openService('Mobile Shining', '$350', 'mobile')">
+                    <div class="card-info">
+                        <h4 class="service-title">Mobile Shining</h4>
+                        <div class="price-tag">$350</div>
+                        <p>Full Detail at your location</p>
+                    </div>
+                </div>
+                <div class="card" onclick="openService('Interior Excellence', '$200', 'interior')">
+                    <div class="card-info">
+                        <h4 class="service-title">Interior Only</h4>
+                        <div class="price-tag">$200</div>
+                        <p>Deep cabin restoration</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header"><h3>2026 Tour Schedule</h3><div class="line"></div></div>
+            <table class="schedule-table">
+                <thead><tr><th>Dates</th><th>Region</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr class="current-stop"><td>September - June</td><td>Saint-Raphaël (FR)</td><td>● Active</td></tr>
+                    <tr><td>July - August</td><td>Golden (USA)</td><td>Filling Fast</td></tr>
+                </tbody>
+            </table>
+
+            <section id="contact" style="text-align: center; margin-top: 60px;">
+                <h3>Contacts</h3>
+                <p>WhatsApp: +1 (720) 999-3326</p>
+                <p>Email: octavianruleraugustus@gmail.com</p>
+                <p>YT: <a href="https://youtube.com/@sspark_shin3?si=wfCzkqFjbOW3ADo8">sSPARK_SHIN3</a></p>
+                
+                <div style="margin-top: 30px; border: 1px solid var(--aston-green); padding: 20px; background: rgba(0,0,0,0.2);">
+                    <h4 style="text-transform: uppercase; margin-top: 0;">Payment Policy</h4>
+                    <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 0;">To maintain boutique-level care and low overhead, we are a <strong>Cash Only</strong> operation. Formal physical receipts provided for every commission.</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div id="service-page">
+        <div class="sticky-header">
+            <div class="back-btn" onclick="closeService()">←</div>
+        </div>
+        
+        <h1 id="sp-title" style="text-transform: uppercase; color: var(--pepper-white); margin-top: 10px;"></h1>
+        <div id="sp-price" class="price-tag"></div>
+        <div class="line" style="margin: 20px 0;"></div>
+        <div id="sp-description" style="margin-bottom: 30px;">
+            <ul id="sp-features" class="feature-list" style="font-size: 1.1rem;"></ul>
+        </div>
+        <div id="sp-note" style="font-style: italic; opacity: 0.7; margin-bottom: 20px;"></div>
+        <a id="sp-book-btn" href="#" class="btn" style="width: 100%; text-align: center; box-sizing: border-box;">BOOK THIS SERVICE</a>
     </div>
 
     <div id="lightbox">
         <div id="close-btn">&times;</div>
-        <img id="lightbox-img" src="" alt="Zoomed view">
+        <img id="lightbox-img" src="" alt="">
     </div>
 
-    <footer>
-        &copy; 2026 Senger Sparkle & Shine. <br>
-        Following the curves of the Riviera and the heritage of cruising.
-    </footer>
-
     <script>
-        // Target all images in the project section
+        const serviceData = {
+            inhouse: {
+                features: ["Full Exterior Detailing & Multi-Stage Polish", "Shuttle Credit (Uber/Lyft) Included", "Ceramic Coating (Optional)", "Leather & Trim Restoration", "Engine Bay Detailing", "Chrome Buff & Exhaust Flush"],
+                note: "Recommended for high-performance and large vehicles. Includes door-to-door shuttle credit. Service: 4-8 hours."
+            },
+            mobile: {
+                features: ["Full Service brought to your location", "Exterior Hand Wash & Dry", "Wheel & Brake Deep Cleaning", "Full Interior Surface Restoration", "Ceramic Sealant Application"],
+                note: "Premium mobile convenience. Price includes travel and setup. Service: 3-6 hours."
+            },
+            interior: {
+                features: ["Deep Vacuum & Compressed Air Dusting", "Leather Cleaning & Conditioning", "Upholstery Stain Removal", "Dashboard & Console UV Protection", "Glass Clarity Treatment", "Odor Elimination: Cherry, Raspberry, Grape, or Perfume (+$10)"],
+                note: "Focus exclusively on cabin restoration. Can be done in-house or mobile. Available for showroom cars also. Service: 2-3 hours."
+            }
+        };
+
+        function openService(title, price, key) {
+            document.getElementById('sp-title').innerText = title;
+            document.getElementById('sp-price').innerText = price;
+            document.getElementById('sp-note').innerText = serviceData[key].note;
+            const list = document.getElementById('sp-features');
+            list.innerHTML = "";
+            serviceData[key].features.forEach(f => {
+                const li = document.createElement('li');
+                li.innerText = f;
+                list.appendChild(li);
+            });
+
+            const emailSubject = encodeURIComponent(`Booking Request: ${title} (${price})`);
+            const emailBody = encodeURIComponent(`Hello Augustus,\n\nI would like to book the ${title} for my vehicle.\n\nPreferred Date:\nVehicle Model:\nAny specific concerns:`);
+            document.getElementById('sp-book-btn').href = `mailto:octavianruleraugustus@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('service-page').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function closeService() {
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('service-page').style.display = 'none';
+        }
+
         const images = document.querySelectorAll('.project-img');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
-        const closeBtn = document.getElementById('close-btn');
-
         images.forEach(img => {
             img.addEventListener('dblclick', function() {
                 if (this.tagName === 'IMG') {
@@ -334,9 +268,7 @@
                 }
             });
         });
-
-        closeBtn.addEventListener('click', () => lightbox.style.display = 'none');
-        lightbox.addEventListener('click', (e) => { if (e.target !== lightboxImg) lightbox.style.display = 'none'; });
+        document.getElementById('close-btn').addEventListener('click', () => lightbox.style.display = 'none');
     </script>
 </body>
 </html>
