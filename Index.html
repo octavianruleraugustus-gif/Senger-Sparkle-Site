@@ -22,7 +22,7 @@
             touch-action: manipulation; 
         }
 
-        /* TRAVEL & SALE BARS (UNTOUCHED) */
+        /* TRAVEL & SALE BARS */
         .travel-tag { background-color: var(--rosso-corsa); color: var(--pepper-white); text-align: center; padding: 12px 0; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; border-bottom: 2px solid var(--aston-green); position: relative; z-index: 10; }
         .sale-bar { background-color: var(--carbon-black); color: var(--pepper-white); text-align: center; padding: 10px 0; font-size: 0.85rem; border-bottom: 2px solid var(--aston-green); position: relative; z-index: 10; }
 
@@ -33,7 +33,7 @@
             text-align: center;
             background-image: linear-gradient(rgba(10, 31, 68, 0.5), rgba(10, 31, 68, 0.8)), url('https://i.ibb.co/VYGSnBDg/20260317-182734-1.jpg');
             background-size: cover;
-            background-position: center 40%; /* Keeps the Badge/Car centered better */
+            background-position: center 40%; 
             border-bottom: 4px solid var(--aston-green);
             min-height: 50vh;
             display: flex;
@@ -84,6 +84,9 @@
         .current-stop { background-color: rgba(212, 0, 0, 0.15); }
 
         .btn { display: inline-block; background-color: var(--rosso-corsa); color: var(--pepper-white); padding: 15px 35px; text-decoration: none; font-weight: bold; margin-top: 20px; border: none; cursor: pointer; }
+        
+        /* Youtube Link style */
+        .contact-link { color: var(--pepper-white); text-decoration: underline; }
 
         /* SECONDARY PAGE SYSTEM */
         #service-page {
@@ -122,7 +125,7 @@
 
     <div id="main-content">
         <div class="travel-tag">📍 Current: Saint-Raphaël, France</div>
-        <div class="sale-bar">25% off all first full details and 50% off with 3 referals!</div>
+        <div class="sale-bar">25% off all first full details and 50% off with 3 referrals!</div>
 
         <section class="master-hero">
             <h1>SENGER SPARKLE AND SHINE</h1>
@@ -134,7 +137,7 @@
             <div class="section-header"><h3>Recent Commissions</h3><div class="line"></div></div>
             <div class="grid">
                 <div class="card">
-                    <img src="https//.jpg" class="project-img" alt="Aston Martin Vantage">                 
+                    <img src="https://i.ibb.co/TDVvY0fC/1773769681674.jpg" class="project-img" alt="Aston Martin Vantage">                 
                     <div class="card-info"><h4>Aston Martin Vantage</h4><p>1 in 100 F1 Edition Roadster</p></div>
                 </div>
                 <div class="card">
@@ -185,7 +188,7 @@
                 <h3>Contacts</h3>
                 <p>WhatsApp: +1 (720) 999-3326</p>
                 <p>Email: octavianruleraugustus@gmail.com</p>
-                <p>YT: <a href="https://youtube.com/@sspark_shin3?si=wfCzkqFjbOW3ADo8">sSPARK_SHIN3</a></p>
+                <p>YT: <a href="https://youtube.com/@sspark_shin3?si=wfCzkqFjbOW3ADo8" class="contact-link">sSPARK_SHIN3</a></p>
                 
                 <div style="margin-top: 30px; border: 1px solid var(--aston-green); padding: 20px; background: rgba(0,0,0,0.2);">
                     <h4 style="text-transform: uppercase; margin-top: 0;">Payment Policy</h4>
@@ -226,7 +229,7 @@
                 note: "Premium mobile convenience. Price includes travel and setup. Service: 3-6 hours."
             },
             interior: {
-                features: ["Deep Vacuum & Compressed Air Dusting", "Leather Cleaning & Conditioning", "Upholstery Stain Removal", "Dashboard & Console UV Protection", "Glass Clarity Treatment", Scents (+$15): Perfume (+$20), Cherry, Raspberry, or Grape"],
+                features: ["Deep Vacuum & Compressed Air Dusting", "Leather Cleaning & Conditioning", "Upholstery Stain Removal", "Dashboard & Console UV Protection", "Glass Clarity Treatment", "Scents (+$15): Perfume Scent (+$20), Cherry, Strawberry, or Grape"],
                 note: "Focus exclusively on cabin restoration. Can be done in-house or mobile. Available for showroom cars also. Service: 2-3 hours."
             }
         };
@@ -257,18 +260,19 @@
             document.getElementById('service-page').style.display = 'none';
         }
 
-        const images = document.querySelectorAll('.project-img');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        images.forEach(img => {
-            img.addEventListener('dblclick', function() {
-                if (this.tagName === 'IMG') {
-                    lightboxImg.src = this.src;
-                    lightbox.style.display = 'flex';
-                }
-            });
+        // Fixed image listener to work with dynamic content
+        document.body.addEventListener('dblclick', function(e) {
+            if (e.target.classList.contains('project-img')) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                lightboxImg.src = e.target.src;
+                lightbox.style.display = 'flex';
+            }
         });
-        document.getElementById('close-btn').addEventListener('click', () => lightbox.style.display = 'none');
+
+        document.getElementById('close-btn').addEventListener('click', () => {
+            document.getElementById('lightbox').style.display = 'none';
+        });
     </script>
 </body>
 </html>
