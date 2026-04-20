@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Senger Sparkle & Shine | From Europe to USA</title>
     <style>
         :root {
@@ -50,7 +50,6 @@
         .project-img { width: 100%; height: 250px; display: block; object-fit: cover; border-bottom: 1px solid var(--aston-green); }
         .card-info { padding: 20px; flex-grow: 1; }
         
-        /* Vehicle Titles in Red */
         .card-info h4 { color: var(--rosso-corsa); margin: 0; text-transform: uppercase; letter-spacing: 1px; }
         .card-info p { margin: 5px 0 0; color: var(--pepper-white); font-size: 0.85rem; opacity: 0.9; }
 
@@ -63,30 +62,43 @@
             background: rgba(0, 0, 0, 0.95); 
             justify-content: center; 
             align-items: center; 
-            touch-action: pan-y; 
+            overflow: hidden; /* Prevent scrollbars during zoom */
+            touch-action: none; /* We will handle gestures manually */
         }
+        
+        #lightbox-img-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.1s ease-out; /* Smooth panning */
+        }
+
         #lightbox img { 
-            max-width: 85%; max-height: 65%; object-fit: contain; 
+            max-width: 90%; 
+            max-height: 80%; 
+            object-fit: contain; 
             user-select: none; 
             -webkit-user-drag: none;
+            transition: transform 0.2s ease-out; /* Smooth zooming */
         }
 
         .nav-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
             background: none; color: white; border: none;
-            font-size: 4rem; padding: 20px; cursor: pointer; z-index: 100000;
+            font-size: 3rem; padding: 20px; cursor: pointer; z-index: 100000;
             display: none; transition: 0.2s; opacity: 0.5;
             -webkit-tap-highlight-color: transparent;
         }
         .nav-btn:hover { opacity: 1; color: var(--rosso-corsa); }
-        #prev-btn { left: 10px; }
-        #next-btn { right: 10px; }
+        #prev-btn { left: 0px; }
+        #next-btn { right: 0px; }
 
         #close-btn { position: absolute; top: 20px; right: 20px; font-size: 45px; color: var(--rosso-corsa); cursor: pointer; z-index: 100001; font-weight: bold; line-height: 1; }
 
-        /* Moved Caption & Counter lower to avoid image overlap */
-        #lb-caption { position: absolute; bottom: 55px; text-align: center; width: 100%; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 3px; opacity: 0.5; font-weight: bold; }
-        #lb-counter { position: absolute; bottom: 20px; text-align: center; width: 100%; font-size: 0.9rem; opacity: 0.4; letter-spacing: 4px; }
+        #lb-caption { position: absolute; bottom: 55px; text-align: center; width: 100%; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 3px; opacity: 0.5; font-weight: bold; pointer-events: none; }
+        #lb-counter { position: absolute; bottom: 20px; text-align: center; width: 100%; font-size: 0.9rem; opacity: 0.4; letter-spacing: 4px; pointer-events: none; }
 
         .contact-link { color: var(--rosso-corsa); text-decoration: underline; }    
     
@@ -122,7 +134,7 @@
                     <div class="card-info"><h4>Maserati Grecale Trofeo</h4><p>(Tap to view)</p></div>
                 </div>
                 <div class="card" onclick="openGallery('mini')">
-                    <img src="https://i.ibb.co/TDgNvRWb/20260317-081539-1-1-1.jpg" class="project-img">
+                    <img src="https://i.ibb.co/PZM74Mn3/20260420-173700-1.jpg" class="project-img">
                     <div class="card-info"><h4>Mini JCW Cabriolet</h4><p>(Tap to view)</p></div>
                 </div>
             </div>
@@ -139,11 +151,6 @@
                 <p>WhatsApp: +1 (720) 999-3326</p>
                 <p>Email: octavianruleraugustus@gmail.com</p>
                 <p>YT: <a href="https://youtube.com/@sspark_shin3?si=wfCzkqFjbOW3ADo8" class="contact-link">sSPARK_SHIN3</a></p>
-                
-                <div style="margin-top: 30px; border: 1px solid var(--aston-green); padding: 20px; background: rgba(0,0,0,0.2);">
-                    <h4 style="text-transform: uppercase; margin-top: 0; color: var(--rosso-corsa);">Payment Policy</h4>
-                    <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 0;">To maintain boutique-level care and low overhead, we are a <strong>Cash Only</strong> operation. Formal physical receipts provided for every commission.</p>
-                </div>
             </section>
         </div>
     </div>
@@ -151,7 +158,9 @@
     <div id="lightbox">
         <span id="close-btn">&times;</span>
         <button id="prev-btn" class="nav-btn">&#10094;</button>
-        <img id="lightbox-img" src="">
+        <div id="lightbox-img-container">
+            <img id="lightbox-img" src="">
+        </div>
         <button id="next-btn" class="nav-btn">&#10095;</button>
         <div id="lb-caption"></div>
         <div id="lb-counter"></div>
@@ -168,91 +177,106 @@
 
     <script>
         const serviceData = {
-            inhouse: { features: ["Full Exterior Detailing & Multi-Stage Polish", "Shuttle Credit (Uber/Lyft)", "Included Ceramic Coating (Optional)", "Leather & Trim Restoration", "Engine Bay Detailing", "Chrome Buff & Exhaust Flush"], note: "Recommended for high-performance and large vehicles. Includes door-to-door shuttle credit. Service: 4-8 hours." },
+            inhouse: { features: ["Full Exterior Detailing & Multi-Stage Polish", "Shuttle Credit (Uber/Lyft)", "Included Ceramic Coating (Optional)", "Leather & Trim Restoration", "Engine Bay Detailing", "Chrome Buff & Exhaust Flush"], note: "Recommended for high-performance and large vehicles. Service: 4-8 hours." },
             mobile: { features: ["Full Service at your location", "Exterior Hand Wash & Dry", "Wheel & Brake Deep Cleaning", "Full Interior Surface Restoration", "Ceramic Sealant"], note: "Price includes travel and setup. Service: 3-6 hours." },
-            interior: { features: ["Deep Vacuum & Compressed Air Dusting", "Leather Cleaning & Conditioning", "Upholstery Stain Removal", "Dashboard & Console UV Protection", "Glass Clarity Treatment", "Scents (+$15): Perfume Scent (+$20), Cherry, Strawberry, or Grape"], note: "Exclusively on cabin restoration. Can be done in-house or mobile. Available for showroom cars also. Service: 2-3 hours" }
+            interior: { features: ["Deep Vacuum & Compressed Air Dusting", "Leather Cleaning & Conditioning", "Upholstery Stain Removal", "Dashboard & Console UV Protection", "Glass Clarity Treatment"], note: "Exclusively on cabin restoration. Service: 2-3 hours" }
         };
 
         const carGalleries = {
-            aston: {
-                title: "Aston Martin Vantage",
-                imgs: [
-                    "https://i.ibb.co/5x5t1W4R/IMG-20260325-WA0005.jpg",
-                    "https://i.ibb.co/vCHFn9Gs/IMG-20260325-WA0004.jpg"
-                ] 
-            },
-            maserati: {
-                title: "Maserati Grecale Trofeo",
-                imgs: [
-                    "https://i.ibb.co/fY1yCpHW/Lit-profile.jpg",
-                    "https://i.ibb.co/k6006Jr4/Front-lit.jpg",
-                    "https://i.ibb.co/wN9vP1c5/Drive-quarter-lit-1.jpg",
-                    "https://i.ibb.co/jvbrmzwW/Rear-quarter-lit.jpg",
-                    "https://i.ibb.co/fVj48T9x/Pass-quarter-lit.jpg",
-                    "https://i.ibb.co/n8MFYGYb/Drive-quarter.jpg",
-                    "https://i.ibb.co/fzYyMjK7/Drive-front.jpg",
-                    "https://i.ibb.co/Vpw5rYcd/Pass-front.jpg",
-                    "https://i.ibb.co/9H8p78rt/Driver-quarter.jpg",
-                    "https://i.ibb.co/5X0jkWdZ/20260330-161654.jpg",
-                    "https://i.ibb.co/Gvy6GFZS/Interior-drive.jpg",
-                    "https://i.ibb.co/23bC55Vy/Interior-back.jpg",
-                    "https://i.ibb.co/CT8RQqQ/Interior-pass.jpg"
-                ]
-            },
-            mini: {
-                title: "Mini JCW",
-                imgs: [
-                    "https://i.ibb.co/YTwYPJmk/20260317-081539-1-1-1.jpg",
-                    "https://i.ibb.co/sJD0xxGc/Rear-quarter-1.jpg",
-                    "https://i.ibb.co/9k64yLKh/Sun-quarter-1.jpg",
-                    "https://i.ibb.co/p6SJhMNZ/Close-up.jpg"
-                ]
-            }
+            aston: { title: "Aston Martin Vantage", imgs: ["https://i.ibb.co/Q0cp72T/IMG-20260325-WA0005.jpg", "https://i.ibb.co/0p59bzc6/IMG-20260325-WA0004.jpg"] },
+            maserati: { title: "Maserati Grecale Trofeo", imgs: ["https://i.ibb.co/pvDyYv1c/Lit-profile.jpg", "https://i.ibb.co/3yVwBFyc/Front-lit.jpg", "https://i.ibb.co/HfYZ8MBD/Drive-quarter-lit-1.jpg", "https://i.ibb.co/JFkMhxkS/Rear-quarter-lit.jpg", "https://i.ibb.co/dJXwN8L2/Pass-quarter-lit.jpg", "https://i.ibb.co/HDps3Cdp/Drive-quarter.jpg", "https://i.ibb.co/VWMMB1Z0/Drive-front.jpg", "https://i.ibb.co/h1F4tD5y/Driver-quarter.jpg", "https://i.ibb.co/nqrcrgFd/20260330-161654.jpg", "https://i.ibb.co/b5334MFX/Interior-drive.jpg", "https://i.ibb.co/BKjvtg3S/Interior-back.jpg", "https://i.ibb.co/vCDfPyy7/Interior-pass.jpg"] },
+            mini: { title: "Mini JCW", imgs: ["https://i.ibb.co/dJxCHLHD/20260420-153409-1.jpg", "https://i.ibb.co/QFv6m5yq/20260420-153828-1.jpg", "https://i.ibb.co/hFSQSJ0x/20260420-153900-1.jpg", "https://i.ibb.co/9kFyYzkx/20260420-153545.jpg", "https://i.ibb.co/PZM74Mn3/20260420-173700-1.jpg", "https://i.ibb.co/NnrzQVy2/20260420-173753-1.jpg", "https://i.ibb.co/k2WJkQTF/20260420-173734-1.jpg", "https://i.ibb.co/WXstyzg/20260420-173722.jpg", "https://i.ibb.co/kVtKWRb9/20260420-153643.jpg", "https://i.ibb.co/rGmh5mY7/20260420-173854.jpg", "https://i.ibb.co/BKScfBrP/20260420-174401.jpg", "https://i.ibb.co/zHf5Pwgn/20260420-174626.jpg"] }
         };
 
         let activeGallery = [];
         let activeTitle = "";
         let currentIndex = 0;
+
+        // ZOOM & PAN STATE
+        let scale = 1;
+        let lastScale = 1;
+        let startDist = 0;
+        let posX = 0;
+        let posY = 0;
+        let lastPosX = 0;
+        let lastPosY = 0;
+        let isDragging = false;
         let touchStartX = 0;
-        let touchEndX = 0;
 
         function openGallery(carKey) {
             activeGallery = carGalleries[carKey].imgs;
             activeTitle = carGalleries[carKey].title;
             currentIndex = 0;
+            resetZoom();
             document.getElementById('lightbox').style.display = 'flex';
             updateLightbox();
         }
 
+        function resetZoom() {
+            scale = 1; posX = 0; posY = 0;
+            applyTransform();
+        }
+
+        function applyTransform() {
+            const img = document.getElementById('lightbox-img');
+            img.style.transform = `scale(${scale}) translate(${posX / scale}px, ${posY / scale}px)`;
+        }
+
         function updateLightbox() {
             const lbImg = document.getElementById('lightbox-img');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            
             lbImg.src = activeGallery[currentIndex];
             document.getElementById('lb-caption').innerText = activeTitle;
             document.getElementById('lb-counter').innerText = `${currentIndex + 1} / ${activeGallery.length}`;
-            
-            prevBtn.style.display = (currentIndex === 0) ? 'none' : 'block';
-            nextBtn.style.display = (currentIndex === activeGallery.length - 1) ? 'none' : 'block';
+            document.getElementById('prev-btn').style.display = (currentIndex === 0) ? 'none' : 'block';
+            document.getElementById('next-btn').style.display = (currentIndex === activeGallery.length - 1) ? 'none' : 'block';
+            resetZoom();
         }
 
         const nextSlide = () => { if (currentIndex < activeGallery.length - 1) { currentIndex++; updateLightbox(); } };
         const prevSlide = () => { if (currentIndex > 0) { currentIndex--; updateLightbox(); } };
 
+        // GESTURE LOGIC
+        const lb = document.getElementById('lightbox');
+        lb.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) {
+                startDist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+            } else {
+                touchStartX = e.touches[0].pageX;
+                lastPosX = e.touches[0].pageX - posX;
+                lastPosY = e.touches[0].pageY - posY;
+                isDragging = true;
+            }
+        });
+
+        lb.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (e.touches.length === 2) {
+                let dist = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+                scale = Math.min(Math.max(1, lastScale * (dist / startDist)), 4);
+                applyTransform();
+            } else if (isDragging) {
+                if (scale > 1.1) {
+                    posX = e.touches[0].pageX - lastPosX;
+                    posY = e.touches[0].pageY - lastPosY;
+                    applyTransform();
+                }
+            }
+        });
+
+        lb.addEventListener('touchend', (e) => {
+            if (scale <= 1.1 && isDragging) {
+                let touchEndX = e.changedTouches[0].pageX;
+                if (touchEndX < touchStartX - 60) nextSlide();
+                if (touchEndX > touchStartX + 60) prevSlide();
+            }
+            lastScale = scale;
+            isDragging = false;
+        });
+
         document.getElementById('next-btn').onclick = (e) => { e.stopPropagation(); nextSlide(); };
         document.getElementById('prev-btn').onclick = (e) => { e.stopPropagation(); prevSlide(); };
         document.getElementById('close-btn').onclick = () => document.getElementById('lightbox').style.display = 'none';
-
-        const lb = document.getElementById('lightbox');
-        lb.addEventListener('touchstart', (e) => touchStartX = e.changedTouches[0].screenX, false);
-        lb.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            if (touchEndX < touchStartX - 50) nextSlide();
-            if (touchEndX > touchStartX + 50) prevSlide();
-        }, false);
-
-        lb.addEventListener('click', (e) => { if (e.target.id === 'lightbox') lb.style.display = 'none'; });
+        lb.onclick = (e) => { if (e.target.id === 'lightbox' || e.target.id === 'lightbox-img-container') document.getElementById('lightbox').style.display = 'none'; };
 
         function openService(title, price, key) {
             document.getElementById('sp-title').innerText = title;
@@ -273,8 +297,5 @@
             document.getElementById('service-page').style.display = 'none';
         }
     </script>
-</body>
+</body>   
 </html>
-
-
-
