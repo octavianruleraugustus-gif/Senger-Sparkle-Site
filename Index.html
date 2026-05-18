@@ -53,6 +53,9 @@
         .card-info h4 { color: var(--rosso-corsa); margin: 0; text-transform: uppercase; letter-spacing: 1px; }
         .card-info p { margin: 5px 0 0; color: var(--pepper-white); font-size: 0.85rem; opacity: 0.9; }
 
+        /* Hidden raw data container to allow native browser translation tools to translate layout details on load */
+        .hidden-service-details { display: none; }
+
         /* LIGHTBOX SYSTEM */
         #lightbox { display: none; position: fixed; z-index: 99999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); justify-content: center; align-items: center; overflow: hidden; touch-action: none; }
         #lightbox-img-container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; transition: transform 0.1s ease-out; }
@@ -111,17 +114,66 @@
 
             <div class="section-header"><h3>Service Options</h3><div class="line"></div></div>
             <div class="grid">            
-                <div class="card" onclick="openService('In-House Detail', '$400-500', 'inhouse')" style="border-top: 4px solid var(--rosso-corsa);">
-                    <div class="card-info"><h4>In-House Detail</h4><div class="price-tag">$400-500</div><p>Full Precision Care + Shuttle</p></div>
+                <div class="card" onclick="openService(this)" style="border-top: 4px solid var(--rosso-corsa);">
+                    <div class="card-info">
+                        <h4>In-House Detail</h4>
+                        <div class="price-tag">$400-500</div>
+                        <p>Full Precision Care + Shuttle</p>
+                        <div class="hidden-service-details">
+                            <span class="f-item">Full Exterior Detailing & Multi-Stage Polish</span>
+                            <span class="f-item">Shuttle Credit (Uber/Lyft)</span>
+                            <span class="f-item">Included Ceramic Coating (Optional)</span>
+                            <span class="f-item">Leather & Trim Restoration</span>
+                            <span class="f-item">Engine Bay Detailing</span>
+                            <span class="f-item">Chrome Buff & Exhaust Flush</span>
+                            <p class="f-note">Recommended for high-performance and luxury vehicles. Service: 4-8 hours.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card" onclick="openService('Full Service', '$350', 'mobile_full')">
-                    <div class="card-info"><h4>Full Detail</h4><div class="price-tag">$350</div><p>Exterior and Interior Bundle</p></div>
+                <div class="card" onclick="openService(this)">
+                    <div class="card-info">
+                        <h4>Full Detail</h4>
+                        <div class="price-tag">$350</div>
+                        <p>Exterior and Interior Bundle</p>
+                        <div class="hidden-service-details">
+                            <span class="f-item">Exterior Hand Wash & Dry</span>
+                            <span class="f-item">Wheel & Brake Deep Cleaning</span>
+                            <span class="f-item">Full Interior Surface Restoration</span>
+                            <span class="f-item">Ceramic Sealant</span>
+                            <span class="f-item">Window & Mirror Shine</span>
+                            <p class="f-note">Service: 4-6 hours.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card" onclick="openService('Exterior Restoration', '$200', 'exterior')">
-                    <div class="card-info"><h4>Exterior Only</h4><div class="price-tag">$200</div><p>Paint correction & shine</p></div>
+                <div class="card" onclick="openService(this)">
+                    <div class="card-info">
+                        <h4>Exterior Only</h4>
+                        <div class="price-tag">$200</div>
+                        <p>Paint correction & shine</p>
+                        <div class="hidden-service-details">
+                            <span class="f-item">Hand Wash & Decontamination</span>
+                            <span class="f-item">Clay Bar Treatment</span>
+                            <span class="f-item">Paint Polish</span>
+                            <span class="f-item">Trim & Tire Rehydration</span>
+                            <span class="f-item">Ceramic Coat Application</span>
+                            <p class="f-note">Focus on paint clarity and protection. Service: 2-3 hours.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card" onclick="openService('Interior Excellence', '$200', 'interior')">
-                    <div class="card-info"><h4>Interior Only</h4><div class="price-tag">$200</div><p>Deep cabin restoration</p></div>
+                <div class="card" onclick="openService(this)">
+                    <div class="card-info">
+                        <h4>Interior Only</h4>
+                        <div class="price-tag">$200</div>
+                        <p>Deep cabin restoration</p>
+                        <div class="hidden-service-details">
+                            <span class="f-item">Deep Vacuum & Compressed Air Dusting</span>
+                            <span class="f-item">Leather Cleaning & Conditioning</span>
+                            <span class="f-item">Upholstery Stain Removal</span>
+                            <span class="f-item">Dashboard & Console UV Protection</span>
+                            <span class="f-item">Window & Mirror Shine</span>
+                            <p class="f-note">Exclusively cabin restoration. Service: 2-3 hours.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -162,17 +214,10 @@
     </div>
 
     <script>
-        const serviceData = {
-            inhouse: { features: ["Full Exterior Detailing & Multi-Stage Polish", "Shuttle Credit (Uber/Lyft)", "Included Ceramic Coating (Optional)", "Leather & Trim Restoration", "Engine Bay Detailing", "Chrome Buff & Exhaust Flush"], note: "Recommended for high-performance and luxury vehicles. Service: 4-8 hours." },
-            mobile_full: { features: ["Exterior Hand Wash & Dry", "Wheel & Brake Deep Cleaning", "Full Interior Surface Restoration", "Ceramic Sealant", "Window & Mirror Shine"], note: "Service: 4-6 hours." },
-            exterior: { features: ["Hand Wash & Decontamination", "Clay Bar Treatment", "Paint Polish", "Trim & Tire Rehydration", "Ceramic Coat Application"], note: "Focus on paint clarity and protection. Service: 2-3 hours." },
-            interior: { features: ["Deep Vacuum & Compressed Air Dusting", "Leather Cleaning & Conditioning", "Upholstery Stain Removal", "Dashboard & Console UV Protection", "Window & Mirror Shine"], note: "Exclusively cabin restoration. Service: 2-3 hours" }
-        };
-
         const carGalleries = {
             aston: { title: "Aston Martin Vantage", imgs: ["https://i.ibb.co/Q0cp72T/IMG-20260325-WA0005.jpg", "https://i.ibb.co/0p59bzc6/IMG-20260325-WA0004.jpg"] },
             maserati: { title: "Maserati Grecale Trofeo", imgs: ["https://i.ibb.co/pvDyYv1c/Lit-profile.jpg", "https://i.ibb.co/3yVwBFyc/Front-lit.jpg", "https://i.ibb.co/HfYZ8MBD/Drive-quarter-lit-1.jpg", "https://i.ibb.co/JFkMhxkS/Rear-quarter-lit.jpg", "https://i.ibb.co/dJXwN8L2/Pass-quarter-lit.jpg", "https://i.ibb.co/HDps3Cdp/Drive-quarter.jpg", "https://i.ibb.co/VWMMB1Z0/Drive-front.jpg", "https://i.ibb.co/h1F4tD5y/Driver-quarter.jpg", "https://i.ibb.co/nqrcrgFd/20260330-161654.jpg", "https://i.ibb.co/b5334MFX/Interior-drive.jpg", "https://i.ibb.co/BKjvtg3S/Interior-back.jpg", "https://i.ibb.co/vCDfPyy7/Interior-pass.jpg"] },
-            mini: { title: "Mini JCW", imgs: ["https://i.ibb.co/dJxCHLHD/20260420-153409-1.jpg", "https://i.ibb.co/QFv6m5yq/20260420-153828-1.jpg", "https://i.ibb.co/hFSQSJ0x/20260420-153900-1.jpg", "https://i.ibb.co/9kFyYzkx/20260420-153545.jpg", "https://i.ibb.co/PZM74Mn3/20260420-173700-1.jpg", "https://i.ibb.co/NnrzQVy2/20260420-173753-1.jpg", "https://i.ibb.co/k2WJkQTF/20260420-173734-1.jpg", "https://i.ibb.co/WXstyzg/20260420-173722.jpg", "https://i.ibb.co/kVtKWRb9/20260420-153643.jpg", "https://i.ibb.co/rGmh5mY7/20260420-173854.jpg", "https://i.ibb.co/BKScfBrP/20260420-174401.jpg", "https://i.ibb.co/zHf5Pwgn/20260420-174626.jpg"] }
+            mini: { title: "Mini JCW", imgs: ["https://i.ibb.co/dJxCHLHD/20260420-153409-1.jpg", "https://i.ibb.co/QFv6m5yq/20260420-153828-1.jpg", "https://i.ibb.co/hFSQSJ0x/20260420-153900-1.jpg", "https://i.ibb.co/9kFyYzkx/20260420-153545.jpg", "https://i.ibb.co/PZM74Mn3/20260420-173700-1.jpg", "https://i.ibb.co/NnrzQVy2/20260420-173700-1.jpg", "https://i.ibb.co/k2WJkQTF/20260420-173734-1.jpg", "https://i.ibb.co/WXstyzg/20260420-173722.jpg", "https://i.ibb.co/kVtKWRb9/20260420-153643.jpg", "https://i.ibb.co/rGmh5mY7/20260420-173854.jpg", "https://i.ibb.co/BKScfBrP/20260420-174401.jpg", "https://i.ibb.co/zHf5Pwgn/20260420-174626.jpg"] }
         };
 
         let activeGallery = [], activeTitle = "", currentIndex = 0;
@@ -231,13 +276,24 @@
         document.getElementById('close-btn').onclick = () => document.getElementById('lightbox').style.display = 'none';
         lb.onclick = (e) => { if (e.target.id === 'lightbox' || e.target.id === 'lightbox-img-container') document.getElementById('lightbox').style.display = 'none'; };
 
-        function openService(title, price, key) {
+        // Pulls directly from the DOM so browser auto-translation elements stay fully intact
+        function openService(cardElement) {
+            const title = cardElement.querySelector('h4').innerText;
+            const price = cardElement.querySelector('.price-tag').innerText;
+            const note = cardElement.querySelector('.f-note').innerText;
+            const features = cardElement.querySelectorAll('.f-item');
+
             document.getElementById('sp-title').innerText = title;
             document.getElementById('sp-price').innerText = price;
-            document.getElementById('sp-note').innerText = serviceData[key].note;
+            document.getElementById('sp-note').innerText = note;
+            
             const list = document.getElementById('sp-features');
             list.innerHTML = "";
-            serviceData[key].features.forEach(f => { const li = document.createElement('li'); li.innerText = f; list.appendChild(li); });
+            features.forEach(f => { 
+                const li = document.createElement('li'); 
+                li.innerText = f.innerText; 
+                list.appendChild(li); 
+            });
             
             // PRE-FILL EMAIL SHELL
             const email = "octavianruleraugustus@gmail.com";
@@ -257,4 +313,3 @@
     </script>
 </body>   
 </html>
- 
