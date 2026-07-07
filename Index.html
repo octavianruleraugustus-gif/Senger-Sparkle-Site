@@ -36,6 +36,7 @@
             border-bottom: 4px solid var(--aston-green);
             min-height: 50vh;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: background-image 1s ease-in-out; /* Added for smoother crossfading */
         }
 
         .master-hero h1 { margin: 0; font-size: clamp(2.2rem, 10vw, 4rem); letter-spacing: -2px; text-shadow: 3px 3px 0px var(--aston-green); text-transform: uppercase; line-height: 0.9; }
@@ -93,7 +94,7 @@
         <div class="travel-tag">📍 Current: Golden, Colorado</div>
         <div class="sale-bar">25% off all first full details and 50% off with 3 referrals!</div>
 
-        <section class="master-hero">
+        <section id="hero-section" class="master-hero">
             <h1>SENGER SPARKLE AND SHINE</h1>
             <p>Precision Care for Performance & Luxury Imports</p>
             <a href="#contact" class="btn">Inquire on Availability</a>
@@ -185,10 +186,19 @@
                     <div class="card-info">
                         <div style="color: #FFD700; font-size: 1.2rem; margin-bottom: 10px;">★★★★★</div>
                         <p style="font-style: italic; margin-bottom: 15px;">"Absolutely incredible attention to detail. My Genesis looks better than ever. Their lack of product applied to the front floormats truly shows they care about customer safety."</p>
-                        <h4 style="font-size: 0.9rem; color: var(--aston-green);">— Rick B.</h4>
+                        <h4 style="font-size: 0.9rem; color: var(--rosso-corsa);">— Rick B.</h4>
                     </div>
                 </div>
             </div>
+            <div class="grid">
+              <div class="card" style="cursor: default;">
+                  <div class="card-info">
+                      <div style="color: #FFD700; font-size: 1.2rem; margin-bottom: 10px;">★★★★★</div>
+                      <p style="font-style: italic; margin-bottom: 15px;">"'[My Lexus] is so shiny that I kind of don't want to drive it now!'"</p>
+                      <h4 style="font-size: 0.9rem; color: var(--rosso-corsa);">— Laurie C.</h4>
+                  </div>
+              </div>
+           </div>
 
             <section id="contact" style="text-align: center; margin-top: 60px;">
                 <h3>Contacts</h3>
@@ -233,6 +243,25 @@
     </div>
 
     <script>
+        // --- HERO IMAGE SLIDESHOW ---
+        // Replace these URLs with the URLs of the actual badges you are wiping down
+        const heroImages = [
+            "https://i.ibb.co/VYGSnBDg/20260317-182734-1.jpg", 
+            "https://i.ibb.co/SX3w0WsP/20260705-143200.jpg",
+            "https://i.ibb.co/LDgh9BY9/20260703-125706.jpg",
+            "https://i.ibb.co/ymy9JQ7R/20260706-182731.jpg"
+        ];
+        
+        let heroIndex = 0;
+        const heroSection = document.getElementById('hero-section');
+
+        setInterval(() => {
+            heroIndex = (heroIndex + 1) % heroImages.length;
+            // Keeps your gradient overlay intact while changing the background image
+            heroSection.style.backgroundImage = `linear-gradient(rgba(10, 31, 68, 0.5), rgba(10, 31, 68, 0.8)), url('${heroImages[heroIndex]}')`;
+        }, 5000); // Cycles every 5000ms (5 seconds)
+        // ----------------------------
+
         const carGalleries = {
             aston: { title: "Aston Martin Vantage", imgs: ["https://i.ibb.co/mCFSxGyX/20260421-163248.jpg", "https://i.ibb.co/G3PqLJ25/20260421-163322.jpg", "https://i.ibb.co/Z64pfynn/20260421-163342.jpg", "https://i.ibb.co/DFvMtjv/20260421-163402.jpg", "https://i.ibb.co/gF97VtRv/20260421-163550.jpg", "https://i.ibb.co/jv4y0kh0/20260421-163614.jpg", "https://i.ibb.co/YF5dVzjb/20260421-163628.jpg", "https://i.ibb.co/C5GPh6gh/20260421-163645.jpg", "https://i.ibb.co/p68L0cfD/20260421-163758.jpg", "https://i.ibb.co/hGRgzHT/20260421-164250.jpg", "https://i.ibb.co/TqMN9cyp/20260421-164503.jpg", "https://i.ibb.co/PGf9qNbW/20260421-164058.jpg"] },
             maserati: { title: "Maserati Grecale Trofeo", imgs: ["https://i.ibb.co/pvDyYv1c/Lit-profile.jpg", "https://i.ibb.co/3yVwBFyc/Front-lit.jpg", "https://i.ibb.co/HfYZ8MBD/Drive-quarter-lit-1.jpg", "https://i.ibb.co/JFkMhxkS/Rear-quarter-lit.jpg", "https://i.ibb.co/dJXwN8L2/Pass-quarter-lit.jpg", "https://i.ibb.co/HDps3Cdp/Drive-quarter.jpg", "https://i.ibb.co/VWMMB1Z0/Drive-front.jpg", "https://i.ibb.co/h1F4tD5y/Driver-quarter.jpg", "https://i.ibb.co/nqrcrgFd/20260330-161654.jpg", "https://i.ibb.co/b5334MFX/Interior-drive.jpg", "https://i.ibb.co/BKjvtg3S/Interior-back.jpg", "https://i.ibb.co/vCDfPyy7/Interior-pass.jpg"] },
