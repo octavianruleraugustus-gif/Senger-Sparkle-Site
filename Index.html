@@ -33,13 +33,28 @@
             text-align: center;
             background-image: linear-gradient(rgba(10, 31, 68, 0.5), rgba(10, 31, 68, 0.8)), url('https://i.ibb.co/VYGSnBDg/20260317-182734-1.jpg');
             background-size: cover;
-            background-position: center 40%; 
+            
+            /* Default setting optimized for mobile/tablet */
+            background-position: center center; 
+            
             border-bottom: 4px solid var(--aston-green);
-            width: 100%; /* Forces edge-to-edge */
-            min-height: 65vh; /* Keeps it tall without breaking the width */
+            width: 100%; 
+            min-height: 65vh; 
             box-sizing: border-box;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: background-image 1s ease-in-out;
+        }
+
+        /* Desktop & Wide Aspect Ratio Target */
+        @media (min-width: 1025px) {
+            .master-hero {
+                /* Shifts the background image up to bring the badges dead center on desktop */
+                background-position: center 75%; 
+            }
+        }
+
+        @media (max-width: 768px) {
+            .master-hero { min-height: 50vh; }
         }
 
         @media (max-width: 768px) {
