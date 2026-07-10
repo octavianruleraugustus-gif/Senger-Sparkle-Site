@@ -38,38 +38,17 @@
             box-sizing: border-box;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: background-image 1s ease-in-out;
-            
-            /* Default fallback position */
             background-position: center center; 
         }
 
         /* PER-IMAGE DESKTOP ALIGNMENTS */
         @media (min-width: 1025px) {
-            .hero-maserati { background-position: center center; }
             .hero-lexus    { background-position: center center; }
-            .hero-genesis  { background-position: center 75%; } /* Adjusts the Genesis badge upward */
-            .hero-bmw      { background-position: center 82%; } /* Adjusts the BMW badge upward */
+            .hero-genesis  { background-position: center 75%; } 
+            .hero-bmw      { background-position: center 82%; } 
         }
 
-        @media (max-width: 768px) {
-            .master-hero { min-height: 50vh; }
-        }
-        /* Desktop & Wide Aspect Ratio Target */
-        @media (min-width: 1025px) {
-            .master-hero {
-                /* Shifts the background image up to bring the badges dead center on desktop */
-                background-position: center 75%; 
-            }
-        }
-
-        @media (max-width: 768px) {
-            .master-hero { min-height: 50vh; }
-        }
-
-        @media (max-width: 768px) {
-            .master-hero { min-height: 50vh; }
-        }
-
+        /* MOBILE HERO OPTIMIZATIONS */
         @media (max-width: 768px) {
             .master-hero { aspect-ratio: 16 / 9; min-height: 50vh; }
         }
@@ -292,34 +271,33 @@
     </div>
 
     <script>
-            // Example array matching your images to their specific positioning classes
+        // Maserati omitted as requested
         const heroSlides = [
-            { url: 'https://i.ibb.co/VYGSnBDg/20260317-182734-1.jpg', className: 'hero-maserati' },
-            { url: 'https://i.ibb.co/SX3w0WsP/20260705-143200.jpg',    className: 'hero-lexus' },
-            { url: 'https://i.ibb.co/LDgh9BY9/20260703-125706.jpg',  className: 'hero-genesis' },
-            { url: 'https://i.ibb.co/ymy9JQ7R/20260706-182731.jpg',      className: 'hero-bmw' }
+            { url: 'https://i.ibb.co/SX3w0WsP/20260705-143200.jpg', className: 'hero-lexus' },
+            { url: 'https://i.ibb.co/LDgh9BY9/20260703-125706.jpg', className: 'hero-genesis' },
+            { url: 'https://i.ibb.co/ymy9JQ7R/20260706-182731.jpg', className: 'hero-bmw' }
         ];
 
-        let currentIndex = 0;
+        let currentHeroIndex = 0; // Renamed to avoid name collisions
         const heroElement = document.getElementById('hero-section');
 
-        function changeHeroBackground() {
-            const currentSlide = heroSlides[currentIndex];
-    
-            // 1. Update the background image string (keep your gradients intact)
-            heroElement.style.backgroundImage = `linear-gradient(rgba(10, 31, 68, 0.5), rgba(10, 31, 68, 0.8)), url('${https://i.ibb.co/VYGSnBDg/20260317-182734-1.jpg}')`;
-    
-            // 2. Remove any previous hero brand classes
-            heroElement.classList.remove('hero-maserati', 'hero-lexus', 'hero-genesis', 'hero-bmw');
-      
-            // 3. Add the class for the active image
-            heroElement.classList.add(currentSlide.className);
-    
-            // Move to next slide
-            currentIndex = (currentIndex + 1) % heroSlides.length;
+        // Set the initial image immediately when page loads
+        if (heroSlides.length > 0) {
+            heroElement.style.backgroundImage = `linear-gradient(rgba(10, 31, 68, 0.5), rgba(10, 31, 68, 0.8)), url('${heroSlides[0].url}')`;
+            heroElement.classList.add(heroSlides[0].className);
         }
 
-        // Your existing interval loop...
+        function changeHeroBackground() {
+            currentHeroIndex = (currentHeroIndex + 1) % heroSlides.length;
+            const currentSlide = heroSlides[currentHeroIndex];
+    
+            // Fixed the literal string bug to dynamically pull the slide URL variable
+            heroElement.style.backgroundImage = `linear-gradient(rgba(10, 31, 68, 0.5), rgba(10, 31, 68, 0.8)), url('${currentSlide.url}')`;
+    
+            heroElement.classList.remove('hero-lexus', 'hero-genesis', 'hero-bmw');
+            heroElement.classList.add(currentSlide.className);
+        }
+
         setInterval(changeHeroBackground, 5000);
         
 
@@ -329,13 +307,13 @@
             mini: { title: "Mini JCW", imgs: ["https://i.ibb.co/dJxCHLHD/20260420-153409-1.jpg", "https://i.ibb.co/QFv6m5yq/20260420-153828-1.jpg", "https://i.ibb.co/hFSQSJ0x/20260420-153900-1.jpg", "https://i.ibb.co/9kFyYzkx/20260420-153545.jpg", "https://i.ibb.co/PZM74Mn3/20260420-173700-1.jpg", "https://i.ibb.co/NnrzQVy2/20260420-173700-1.jpg", "https://i.ibb.co/k2WJkQTF/20260420-173734-1.jpg", "https://i.ibb.co/WXstyzg/20260420-173722.jpg", "https://i.ibb.co/kVtKWRb9/20260420-153643.jpg", "https://i.ibb.co/rGmh5mY7/20260420-173854.jpg", "https://i.ibb.co/BKScfBrP/20260420-174401.jpg", "https://i.ibb.co/zHf5Pwgn/20260420-174626.jpg"] }
         };
 
-        let activeGallery = [], activeTitle = "", currentIndex = 0;
+        let activeGallery = [], activeTitle = "", currentGalleryIndex = 0; // Renamed variable
         let scale = 1, lastScale = 1, startDist = 0, posX = 0, posY = 0, lastPosX = 0, lastPosY = 0, isDragging = false, touchStartX = 0;
 
         function openGallery(carKey) {
             activeGallery = carGalleries[carKey].imgs;
             activeTitle = carGalleries[carKey].title;
-            currentIndex = 0;
+            currentGalleryIndex = 0;
             resetZoom();
             document.getElementById('lightbox').style.display = 'flex';
             updateLightbox();
@@ -346,16 +324,16 @@
         
         function updateLightbox() {
             const lbImg = document.getElementById('lightbox-img');
-            lbImg.src = activeGallery[currentIndex];
+            lbImg.src = activeGallery[currentGalleryIndex];
             document.getElementById('lb-caption').innerText = activeTitle;
-            document.getElementById('lb-counter').innerText = `${currentIndex + 1} / ${activeGallery.length}`;
-            document.getElementById('prev-btn').style.display = (currentIndex === 0) ? 'none' : 'block';
-            document.getElementById('next-btn').style.display = (currentIndex === activeGallery.length - 1) ? 'none' : 'block';
+            document.getElementById('lb-counter').innerText = `${currentGalleryIndex + 1} / ${activeGallery.length}`;
+            document.getElementById('prev-btn').style.display = (currentGalleryIndex === 0) ? 'none' : 'block';
+            document.getElementById('next-btn').style.display = (currentGalleryIndex === activeGallery.length - 1) ? 'none' : 'block';
             resetZoom();
         }
 
-        const nextSlide = () => { if (currentIndex < activeGallery.length - 1) { currentIndex++; updateLightbox(); } };
-        const prevSlide = () => { if (currentIndex > 0) { currentIndex--; updateLightbox(); } };
+        const nextSlide = () => { if (currentGalleryIndex < activeGallery.length - 1) { currentGalleryIndex++; updateLightbox(); } };
+        const prevSlide = () => { if (currentGalleryIndex > 0) { currentGalleryIndex--; updateLightbox(); } };
 
         const lb = document.getElementById('lightbox');
         lb.addEventListener('touchstart', (e) => {
@@ -386,7 +364,6 @@
         document.getElementById('close-btn').onclick = () => document.getElementById('lightbox').style.display = 'none';
         lb.onclick = (e) => { if (e.target.id === 'lightbox' || e.target.id === 'lightbox-img-container') document.getElementById('lightbox').style.display = 'none'; };
 
-        // FIX: Replaced innerText with textContent so JavaScript can properly pull hidden DOM data
         function openService(cardElement) {
             const title = cardElement.querySelector('h4').textContent;
             const price = cardElement.querySelector('.price-tag').textContent;
@@ -405,22 +382,18 @@
                 list.appendChild(li); 
             });
             
-            // PRE-FILL EMAIL SHELL
             const email = "octavianruleraugustus@gmail.com";
             const subject = encodeURIComponent(`Service Inquiry: ${title}`);
             const body = encodeURIComponent(`Hello Senger Sparkle & Shine,\n\nI am interested in the ${title} package (${price}).\n\nName:\nVehicle Model:\nPreferred Date/Time:\n\nThank you!`);
             document.getElementById('sp-book-btn').href = `mailto:${email}?subject=${subject}&body=${body}`;
 
-            // Reveal the new modal wrapper
             document.getElementById('service-modal-wrapper').style.display = 'flex';
         }
 
-        // Close via the modal wrapper overlay 
         function closeService() {
             document.getElementById('service-modal-wrapper').style.display = 'none';
         }
 
-        // Close if the user clicks the dark background outside the popup window
         document.getElementById('service-modal-wrapper').addEventListener('click', function(e) {
             if(e.target === this) { closeService(); }
         });
